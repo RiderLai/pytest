@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 async def rabbitmq_publish(loop, key, message):
-    connection = await aio_pika.connect_robust('amqp://test4:test4@127.0.0.1:5672/test3',
+    connection = await aio_pika.connect_robust('amqp://guest:guest@127.0.0.1:5672',
                                                # virtualhost='test2',
                                                loop=loop)
     async with connection:

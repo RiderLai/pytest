@@ -28,28 +28,57 @@
 # print(pid)
 
 
-import os
-import time
+# import os
+# import time
+#
+# NUM_PROCESSES = 7
+#
+#
+# def timeConsumingFunction():
+#     x = 1
+#     for n in range(10000000):
+#         x += 1
+#
+#
+# children = []
+# start_time = time.time()
+# for process in range(NUM_PROCESSES):
+#     pid = os.fork()
+#     if pid:
+#         children.append(pid)
+#         print(pid)
+#     else:
+#         timeConsumingFunction()
+#         os._exit(0)
+# for i, child in enumerate(children):
+#     os.waitpid(child, 0)
+# print(time.time() - start_time)
 
-NUM_PROCESSES = 7
+
+# import os
+# import asyncio
+# from tornado.process import fork_processes
+#
+# if __name__ == '__main__':
+#     print(id(asyncio.get_event_loop()))
+#     fork_processes(2)
+#     loop1 = asyncio.new_event_loop()
+#     print(id(loop1))
+#     loop2 = asyncio.new_event_loop()
+#     print(id(loop1))
+#     print(id(loop2))
+
+import asyncio
+from multiprocessing import Process
 
 
-def timeConsumingFunction():
-    x = 1
-    for n in range(10000000):
-        x += 1
+def main():
+    loop = asyncio.get_event_loop()
+    print(id(loop))
 
 
-children = []
-start_time = time.time()
-for process in range(NUM_PROCESSES):
-    pid = os.fork()
-    if pid:
-        children.append(pid)
-        print(pid)
-    else:
-        timeConsumingFunction()
-        os._exit(0)
-for i, child in enumerate(children):
-    os.waitpid(child, 0)
-print(time.time() - start_time)
+if __name__ == '__main__':
+    for i in range(1):
+        t = Process(target=main)
+        t.start()
+    main()

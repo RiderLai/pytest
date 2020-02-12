@@ -14,14 +14,14 @@ async def queue_listening(queue) -> None:
     #             print(message.body)
 
     async def on_message(message: aio_pika.IncomingMessage):
-        async with message.process():
-            print(message.body)
+        print(message.body)
+        await message.reject()
 
     await queue.consume(on_message)
 
 
 async def main():
-    connetion = await aio_pika.connect_robust(url='amqp://test4:test4@127.0.0.1:5672/test3',
+    connetion = await aio_pika.connect_robust(url='amqp://guest:guest@127.0.0.1:5672',
                                               # virtualhost='test',
                                               loop=asyncio.get_event_loop())
     channel = await connetion.channel()
